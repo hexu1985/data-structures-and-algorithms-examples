@@ -24,10 +24,10 @@ def get_next_node(table, visited_nodes):
     return min_vertex 
 
 def find_shortest_path(graph, table, origin): 
-   visited_nodes = [] 
-   current_node = origin 
-   starting_node = origin 
-   while True: 
+    visited_nodes = [] 
+    current_node = origin 
+    starting_node = origin 
+    while True: 
         adjacent_nodes = graph[current_node] 
         if set(adjacent_nodes).issubset(set(visited_nodes)): 
             # Nothing here to do. All adjacent nodes have been visited. 
@@ -49,7 +49,7 @@ def find_shortest_path(graph, table, origin):
         if len(visited_nodes) == len(table.keys()): 
             break 
         current_node = get_next_node(table,visited_nodes) 
-   return(table)
+    return(table)
 
 graph = dict() 
 graph['A'] = {'B': 5, 'D': 9, 'E': 2} 
