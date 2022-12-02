@@ -23,9 +23,9 @@ print(edges_list)
 
 
 for edge in edges_list: 
-        index_of_first_vertex = matrix_elements.index(edge[0]) 
-        index_of_second_vertex = matrix_elements.index(edge[1]) 
-        adjacency_matrix[index_of_first_vertex][index_of_second_vertex] = 1 
+    index_of_first_vertex = matrix_elements.index(edge[0]) 
+    index_of_second_vertex = matrix_elements.index(edge[1]) 
+    adjacency_matrix[index_of_first_vertex][index_of_second_vertex] = 1 
 
 
 println(adjacency_matrix)
