@@ -1,27 +1,27 @@
 
 
 def get_shortest_distance(table, vertex): 
-        shortest_distance = table[vertex][DISTANCE] 
-        return shortest_distance 
+    shortest_distance = table[vertex][DISTANCE] 
+    return shortest_distance 
     
 def set_shortest_distance(table, vertex, new_distance): 
-        table[vertex][DISTANCE] = new_distance 
+    table[vertex][DISTANCE] = new_distance 
         
 def set_previous_node(table, vertex, previous_node): 
-        table[vertex][PREVIOUS_NODE] = previous_node 
+    table[vertex][PREVIOUS_NODE] = previous_node 
 
 def get_distance(graph, first_vertex, second_vertex): 
-        return graph[first_vertex][second_vertex] 
+    return graph[first_vertex][second_vertex] 
         
 def get_next_node(table, visited_nodes): 
-        unvisited_nodes = list(set(table.keys()).difference(set(visited_nodes))) 
-        assumed_min = table[unvisited_nodes[0]][DISTANCE] 
-        min_vertex = unvisited_nodes[0] 
-        for node in unvisited_nodes: 
-            if table[node][DISTANCE] < assumed_min: 
-                assumed_min = table[node][DISTANCE] 
-                min_vertex = node 
-        return min_vertex 
+    unvisited_nodes = list(set(table.keys()).difference(set(visited_nodes))) 
+    assumed_min = table[unvisited_nodes[0]][DISTANCE] 
+    min_vertex = unvisited_nodes[0] 
+    for node in unvisited_nodes: 
+        if table[node][DISTANCE] < assumed_min: 
+            assumed_min = table[node][DISTANCE] 
+            min_vertex = node 
+    return min_vertex 
 
 def find_shortest_path(graph, table, origin): 
    visited_nodes = [] 
@@ -78,5 +78,5 @@ shortest_distance_table = find_shortest_path(graph, table, 'A')
 
 
 for k in sorted(shortest_distance_table): 
-        print("{} - {}".format(k,shortest_distance_table[k])) 
+    print("{} - {}".format(k,shortest_distance_table[k])) 
 
