@@ -103,10 +103,10 @@ class iterator
 		// index of current bucket being traversed
 		int currentBucket;
 		// points to the current element in the current bucket
-		list<T>::iterator currentLoc;
+		typename list<T>::iterator currentLoc;
 
 		iterator(hash<T,HashFunc> *ht, int b,
-					list<T>::iterator loc):
+					typename list<T>::iterator loc):
 			hashTable(ht), currentBucket(b), currentLoc(loc)
 		{}
 
@@ -236,11 +236,11 @@ class const_iterator
 		// index of current bucket being traversed
 		int currentBucket;
 		// points to the current element in the current bucket
-		list<T>::const_iterator currentLoc;
+		typename list<T>::const_iterator currentLoc;
 
 		// used to construct an iterator return value
 		const_iterator(const hash<T,HashFunc> *ht, int b,
-							list<T>::const_iterator loc):
+							typename list<T>::const_iterator loc):
 			hashTable(ht), currentBucket(b), currentLoc(loc)
 		{}
 
