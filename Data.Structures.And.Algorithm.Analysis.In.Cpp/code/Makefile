@@ -4,7 +4,7 @@ INCLUDE =
 LDFLAGS = 
 LDLIBS = 
 
-PROGS =	TestList
+PROGS =	TestList TestRandom Fig10_63
 
 .PHONY: all
 all: $(PROGS)
@@ -15,5 +15,11 @@ clean:
 	@echo "clean OK!"
 
 TestList: TestList.o
+	$(CXX) -o $@ $^ $(LDFLAGS) $(LDLIBS)
+
+TestRandom: TestRandom.o Random.o
+	$(CXX) -o $@ $^ $(LDFLAGS) $(LDLIBS)
+
+Fig10_63: Fig10_63.o Random.o
 	$(CXX) -o $@ $^ $(LDFLAGS) $(LDLIBS)
 
