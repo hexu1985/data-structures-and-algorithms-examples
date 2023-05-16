@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
 
 #include "d_acct.h"
 

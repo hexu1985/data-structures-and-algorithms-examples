@@ -107,11 +107,7 @@ void hCompress::freqAnalysis()
 	while (true)
 	{
 		// get the next character
-#ifdef __GNUC__
-		source.get(ch);
-#else
 		ch = source.get();
-#endif	// __GNUC__
 
 		if (!source)
 			break;
@@ -293,7 +289,7 @@ void hCompress::writeCompressedData()
 
 	// clear end-of-file for the source file and set file
 	// pointer to the beginning of the file
-	source.clear(0);
+	source.clear();
 	source.seekg(0, ios::beg);
 
 	// bitPos is used to put bits into compressedData
@@ -304,11 +300,7 @@ void hCompress::writeCompressedData()
 	while (true)
 	{
 		// get the next character
-#ifdef __GNUC__
-		source.get(ch);
-#else
 		ch = source.get();
-#endif	// __GNUC__
 
 		if (!source)
 			break;
