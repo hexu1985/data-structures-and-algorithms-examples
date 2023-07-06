@@ -3,7 +3,7 @@ CFLAGS = -g3 -Wall -Wextra
 LDFLAGS = 
 LDLIBS = 
 
-PROGS =	testlist
+PROGS =	testlist teststkl
 
 .PHONY: all
 all: $(PROGS)
@@ -14,6 +14,9 @@ clean:
 	@echo "clean OK!"
 
 testlist: testlist.o list.o
+	$(CC) -o $@ $^ $(LDFLAGS) $(LDLIBS)
+
+teststkl: teststkl.o stackli.o
 	$(CC) -o $@ $^ $(LDFLAGS) $(LDLIBS)
 
 
