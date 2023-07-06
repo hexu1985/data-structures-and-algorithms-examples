@@ -259,7 +259,7 @@ friend int minimumPath(graph<T>& g, const T& sVertex, const T& eVertex,
 	// return value
 	int returnValue;
 
-	list<T>::iterator pathIter;
+	typename list<T>::iterator pathIter;
 
 	// initialize all vertices to unmarked (WHITE) and dataValue
 	// variables to INFINITY
@@ -671,7 +671,7 @@ friend void strongComponents(graph<T>& g, vector<set<T> >& component)
 	list<T> dfsGTList;
 
 	// used to scan dfsGList and dfsGTList objects
-	list<T>::iterator gIter, gtIter;
+	typename list<T>::iterator gIter, gtIter;
 
 	// transpose of the graph
 	graph<T> gt;

@@ -56,7 +56,7 @@ class vertexInfo
 		enum vertexColor { WHITE, GRAY, BLACK };
 
 		// iterator pointing at a pair<T,int> object in the vertex map
-		map<T,int>::iterator vtxMapLoc;
+		typename map<T,int>::iterator vtxMapLoc;
 
 		// set of adjacent (neighbor) objects for the current vertex
 		set<neighbor> edges;
@@ -83,7 +83,7 @@ class vertexInfo
 		{}
 
 		// constructor with iterator pointing to the vertex in the map
-		vertexInfo(map<T,int>::iterator iter):
+		vertexInfo(typename map<T,int>::iterator iter):
 				vtxMapLoc(iter), inDegree(0), occupied(true)
 		{}
 };
@@ -110,15 +110,15 @@ class graph
             {}
 
 				// converts a map iterator to a graph iterator
-            const_iterator(map<T,int>::const_iterator i)
+            const_iterator(typename std::map<T,int>::const_iterator i)
             {
-					*((map< T, int >::const_iterator *)this) = i;
+					*((typename map< T, int >::const_iterator *)this) = i;
 				}
 
 				// return the vertex pointed to by the iterator
             const T& operator* () const
             {
-               map<T,int>::const_iterator p = *this;
+                typename std::map<T,int>::const_iterator p = *this;
 
                return (*p).first;
             }
@@ -288,7 +288,7 @@ template <typename T>
 int graph<T>::getvInfoIndex(const T& v) const
 {
 	// iter used in map lookup
-	vertexMap::const_iterator iter;
+	typename vertexMap::const_iterator iter;
 	// index that is returned
 	int pos;
 
@@ -321,7 +321,7 @@ graph<T>::graph(const graph<T>& g)
 template <typename T>
 graph<T>& graph<T>::operator= (const graph<T>& rhs)
 {
-	vertexMap::iterator mi;
+	typename vertexMap::iterator mi;
 
 	// can't copy a graph to itself
 	if (this == &rhs)
@@ -524,8 +524,8 @@ void graph<T>::insertVertex(const T& v)
 	// to index and increment numVertices. if the insertion did
 	// not take place, the vertex already exists. generate an
 	// exception
-	pair<vertexMap::iterator, bool> result =
-		vtxMap.insert(vertexMap::value_type(v,0));
+	pair<typename vertexMap::iterator, bool> result =
+		vtxMap.insert(typename vertexMap::value_type(v,0));
 	if (result.second)
 	{
 		// see if there is an entry in vInfo freed by an earlier
@@ -587,7 +587,7 @@ template <typename T>
 void graph<T>::eraseVertex(const T& v)
 {
 	// use to search for and remove v from the map
-	vertexMap::iterator mIter;
+	typename vertexMap::iterator mIter;
 	// pos is index of v in the vertex list
 	int pos, j;
 	// used in removal of edges to v
@@ -675,25 +675,25 @@ void graph<T>::clear()
 // each graph iterator function returns
 // the corresponding map iterator
 template <typename T>
-graph<T>::iterator graph<T>::begin()
+typename graph<T>::iterator graph<T>::begin()
 {
   return graph<T>::iterator(vtxMap.begin());
 }
 
 template <typename T>
-graph<T>::iterator graph<T>::end()
+typename graph<T>::iterator graph<T>::end()
 {
 	return graph<T>::iterator(vtxMap.end());
 }
 
 template <typename T>
-graph<T>::const_iterator graph<T>::begin() const
+typename graph<T>::const_iterator graph<T>::begin() const
 {
 	return graph<T>::iterator(vtxMap.begin());
 }
 
 template <typename T>
-graph<T>::const_iterator graph<T>::end() const
+typename graph<T>::const_iterator graph<T>::end() const
 {
   return graph<T>::iterator(vtxMap.end());
 }

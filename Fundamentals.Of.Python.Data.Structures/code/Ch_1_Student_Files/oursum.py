@@ -11,3 +11,6 @@ def ourSum(lower, upper, margin = 0):
         result = lower + ourSum(lower + 1, upper, margin + 4)
         print(blanks, result)
         return result
+
+if __name__ == "__main__":
+    ourSum(1, 4)
