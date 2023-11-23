@@ -5,3 +5,4 @@ cmake_minimum_required(VERSION 3.5 FATAL_ERROR)
 project(project LANGUAGES C)
 
 add_executable(testlist testlist.c list.c)
+add_executable(teststkl teststkl.c stackli.c)
