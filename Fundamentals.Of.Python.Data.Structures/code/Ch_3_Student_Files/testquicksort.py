@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 """
 File: testquicksort.py
 
@@ -39,7 +41,7 @@ def swap(lyst, i, j):
     lyst[j] = temp
 
 
-import random
+import random
 
 def main(size = 20, sort = quicksort):
     lyst = []
