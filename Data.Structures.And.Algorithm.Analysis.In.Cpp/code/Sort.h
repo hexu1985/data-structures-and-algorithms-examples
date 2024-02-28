@@ -69,6 +69,9 @@ void shellsort( vector<Comparable> & a )
         }
 }
 
+template <typename Comparable>
+void percDown( vector<Comparable> & a, int i, int n );
+
 /**
  * Standard heapsort.
  */
@@ -118,6 +121,10 @@ void percDown( vector<Comparable> & a, int i, int n )
     }
     a[ i ] = std::move( tmp );
 }
+
+template <typename Comparable>
+void merge( vector<Comparable> & a, vector<Comparable> & tmpArray,
+            int leftPos, int rightPos, int rightEnd );
 
 /**
  * Internal method that makes recursive calls.

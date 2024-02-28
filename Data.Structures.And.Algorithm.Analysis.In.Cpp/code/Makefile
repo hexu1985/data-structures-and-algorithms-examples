@@ -4,7 +4,7 @@ INCLUDE =
 LDFLAGS = 
 LDLIBS = 
 
-PROGS =	TestList TestRandom Fig10_63 TestVector
+PROGS =	TestList TestRandom Fig10_63 TestVector TestSort
 
 .PHONY: all
 all: $(PROGS)
@@ -24,5 +24,8 @@ Fig10_63: Fig10_63.o Random.o
 	$(CXX) -o $@ $^ $(LDFLAGS) $(LDLIBS)
 
 TestVector: TestVector.o
+	$(CXX) -o $@ $^ $(LDFLAGS) $(LDLIBS)
+
+TestSort: TestSort.o
 	$(CXX) -o $@ $^ $(LDFLAGS) $(LDLIBS)
 
