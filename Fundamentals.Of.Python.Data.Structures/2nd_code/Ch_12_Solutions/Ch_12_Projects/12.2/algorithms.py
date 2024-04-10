@@ -16,7 +16,11 @@ def topoSort(g, startLabel = None):
     for v in g.getVertices():
         if not v.isMarked():
             dfs(g, v, stack)
-    return stack
+
+    vertices = []
+    while not stack.isEmpty():
+        vertices.append(stack.pop())
+    return vertices
 
 def dfs(g, v, stack):
     v.setMark()
