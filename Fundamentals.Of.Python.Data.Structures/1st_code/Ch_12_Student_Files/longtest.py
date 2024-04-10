@@ -61,12 +61,12 @@ g.addVertex("j")
 result = ""
 for vertex in g.vertices():
     result += str(vertex) + " "    
-    print("Expect 10        :", g.sizeVertices())
-    print("Expect a thru j  :", result)
-    print("Expect True False :", g.containsVertex("a"), end = " ")
-    print(g.containsVertex("x"))
+print("Expect 10        :", g.sizeVertices())
+print("Expect a thru j  :", result)
+print("Expect True False :", g.containsVertex("a"), end = " ")
+print(g.containsVertex("x"))
 print("Expect a b True False :", g.getVertex("a"), end = " ")
-print(g.getVertex("b"), " ", g.removeVertex("j"))
+print(g.getVertex("b"), " ", g.removeVertex("j"), end = " ")
 print(g.containsVertex("j"))
 
 vertex = g.getVertex("a")
