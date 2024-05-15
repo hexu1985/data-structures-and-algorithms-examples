@@ -11,5 +11,6 @@
     - [数据结构(Python语言描述)](Fundamentals.Of.Python.Data.Structures)
     - [Python算法教程](Python.Algorithms)
     - [Python数据结构和算法实战](Hands.On.Data.Structures.And.Algorithms.With.Python)
-    - [算法图解](Grokking.Algorithms)
     - [数据结构与算法 Python语言实现](Data.Structures.And.Algorithms.In.Python)
++ Other
+    - [算法图解](Grokking.Algorithms)
