@@ -1,0 +1,12 @@
+language: python
+python:
+  - "3.9"
+  - "3.10"
+install:
+  - python3 -m pip install -r requirements-dev.txt
+script:
+  - coverage run -m pytest
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+
