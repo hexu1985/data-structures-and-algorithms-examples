@@ -9,6 +9,7 @@
     - [数据结构与算法分析 C++语言描述](Data.Structures.And.Algorithm.Analysis.In.Cpp)
     - [数据结构、算法与应用 C++语言描述](Data.Structures.Algorithms.And.Applications.In.Cpp)
     - [C++数据结构与算法](Data.Structures.And.Algorithms.In.Cpp)
+    - [图解算法和数据结构](Diagrammatize.Algorithms.And.Data.Structures)
 + Python
     - [数据结构(Python语言描述)](Fundamentals.Of.Python.Data.Structures)
     - [Python算法教程](Python.Algorithms)
