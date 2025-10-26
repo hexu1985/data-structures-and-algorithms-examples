@@ -3,46 +3,46 @@
 #include <vector>
 using namespace std;
 
-// Ï¢·ë¥ê¥¹¥È¤Î³Æ¥Î¡¼¥É¤òÉ½¤¹¹½Â¤ÂÎ
+// ªí¥Ü?ªí¤¤¨C???ªº?ÌÛÊ^
 struct Node {
-    Node* next; // ¼¡¤¬¤É¤Î¥Î¡¼¥É¤ò»Ø¤¹¤«
-    string name; // ¥Î¡¼¥É¤ËÉÕ¿ï¤·¤Æ¤¤¤ëÃÍ
+    Node* next; // ¤U¤@???«ü¦V­þ???
+    string name; // ÉO????ªº­È
 
     Node(string name_ = "") : next(NULL), name(name_) { }
 };
 
-// ÈÖÊ¼¤òÉ½¤¹¥Î¡¼¥É¤ò¥°¥í¡¼¥Ð¥ëÎÎ°è¤ËÃÖ¤¤¤Æ¤ª¤¯
+// ?ªí¥Ü­ï§Lªº??©ñ¸m¦b¥þ§½­S??
 Node* nil;
 
-// ½é´ü²½
+// ªì©l¤Æ
 void init() {
     nil = new Node();
-    nil->next = nil; // ½é´ü¾õÂÖ¤Ç¤Ï nil ¤¬ nil ¤ò»Ø¤¹¤è¤¦¤Ë¤¹¤ë
+    nil->next = nil; // ¦bªì©l??¤U¡A?nil«ü¦V¦Û¤v(nil)
 }
 
-// Ï¢·ë¥ê¥¹¥È¤ò½ÐÎÏ¤¹¤ë
+// ?¥X?ªíªº?®e
 void printList() {
-    Node* cur = nil->next; // ÀèÆ¬¤«¤é½ÐÈ¯
+    Node* cur = nil->next; // ??ªíªº?³¡?©l
     for (; cur != nil; cur = cur->next) {
         cout << cur->name << " -> ";
     }
     cout << endl;
 }
 
-// ¥Î¡¼¥É p ¤ÎÄ¾¸å¤Ë¥Î¡¼¥É v ¤òÁÞÆþ¤¹¤ë
-// ¥Î¡¼¥É p ¤Î¥Ç¥Õ¥©¥ë¥È°ú¿ô¤ò nil ¤È¤·¤Æ¤ª¤¯
-// ¤½¤Î¤¿¤á insert(v) ¤ò¸Æ¤Ó½Ð¤¹Áàºî¤Ï¡¤¥ê¥¹¥È¤ÎÀèÆ¬¤Ø¤ÎÁÞÆþ¤òÉ½¤¹
+// ¦b??p¤§¦Z´¡¤J??v
+// ???pªºÀq????¸m?nil
+// ¦]¦¹¡A?¥Îinsert(v)ªº¾Þ§@ªí¥Ü?v´¡¤J?ªíªº??
 void insert(Node* v, Node* p = nil) {
     v->next = p->next;
     p->next = v;
 }
 
 int main() {
-    // ½é´ü²½
+    // ªì©l¤Æ
     init();
 
-    // ºî¤ê¤¿¤¤¥Î¡¼¥É¤ÎÌ¾Á°¤Î°ìÍ÷
-    // ºÇ¸åÈø¤Î¥Î¡¼¥É (¡Ö»³ËÜ¡×) ¤«¤é½ç¤ËÁÞÆþ¤¹¤ë¤³¤È¤ËÃí°Õ
+    // ·Q­n?«Øªº??ªº¦W?¦Cªí
+    // ª`·N¡A­n?³Ì¦Z¤@???("yamamoto")?©l³v??¤J
     vector<string> names = {"yamamoto",
                             "watanabe",
                             "ito",
@@ -50,15 +50,15 @@ int main() {
                             "suzuki",
                             "sato"};
 
-    // ³Æ¥Î¡¼¥É¤òÀ¸À®¤·¤Æ¡¤Ï¢·ë¥ê¥¹¥È¤ÎÀèÆ¬¤ËÁÞÆþ¤·¤Æ¤¤¤¯
+    // ¥Í¦¨¨C???¡A¦}?¥¦?³v?´¡¤J?ªíªº??
     for (int i = 0; i < (int)names.size(); ++i) {
-        // ¥Î¡¼¥É¤òºîÀ®¤¹¤ë
+        // ?«Ø??
         Node* node = new Node(names[i]);
 
-        // ºîÀ®¤·¤¿¥Î¡¼¥É¤òÏ¢·ë¥ê¥¹¥È¤ÎÀèÆ¬¤ËÁÞÆþ¤¹¤ë
+        // ??«Øªº??´¡¤J?ªíªº??
         insert(node);
 
-        // ³Æ¥¹¥Æ¥Ã¥×¤ÎÏ¢·ë¥ê¥¹¥È¤ÎÍÍ»Ò¤ò½ÐÎÏ¤¹¤ë
+        // ?¥X¨C?¨B?¤¤?ªíªº??
         cout << "step " << i << ": ";
         printList();
     }

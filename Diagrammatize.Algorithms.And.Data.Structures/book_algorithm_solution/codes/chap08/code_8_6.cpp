@@ -1,37 +1,38 @@
 #include <iostream>
 #include <string>
 #include <vector>
+
 using namespace std;
 
-// Ï¢·ë¥ê¥¹¥È¤Î³Æ¥Î¡¼¥É¤òÉ½¤¹¹½Â¤ÂÎ
+// ªí¥Ü?ªí¤¤¨C???ªº?ÌÛÊ^
 struct Node {
     Node *prev, *next;
-    string name; // ¥Î¡¼¥É¤ËÉÕ¿ï¤·¤Æ¤¤¤ëÃÍ
+    string name; // ÉO????ªº­È
 
     Node(string name_ = "") :
     prev(NULL), next(NULL), name(name_) { }
 };
 
-// ÈÖÊ¼¤òÉ½¤¹¥Î¡¼¥É¤ò¥°¥í¡¼¥Ð¥ëÎÎ°è¤ËÃÖ¤¤¤Æ¤ª¤¯
+// ?ªí¥Ü­ï§Lªº??©ñ¸m¦b¥þ§½­S??
 Node* nil;
 
-// ½é´ü²½
+// ªì©l¤Æ
 void init() {
     nil = new Node();
     nil->prev = nil; 
     nil->next = nil;
 }
 
-// Ï¢·ë¥ê¥¹¥È¤ò½ÐÎÏ¤¹¤ë
+// ?¥X?ªíªº?®e
 void printList() {
-    Node* cur = nil->next; // ÀèÆ¬¤«¤é½ÐÈ¯
+    Node* cur = nil->next; // ??ªíªº?³¡?©l
     for (; cur != nil; cur = cur->next) {
         cout << cur->name << " -> ";
     }
     cout << endl;
 }
 
-// ¥Î¡¼¥É p ¤ÎÄ¾¸å¤Ë¥Î¡¼¥É v ¤òÁÞÆþ¤¹¤ë
+// ¦b??p¤§¦Z´¡¤J??v
 void insert(Node* v, Node* p = nil) {
     v->next = p->next;
     p->next->prev = v;
@@ -39,20 +40,20 @@ void insert(Node* v, Node* p = nil) {
     v->prev = p;
 }
 
-// ¥Î¡¼¥É v ¤òºï½ü¤¹¤ë
+// ?°£??
 void erase(Node *v) {
-    if (v == nil) return; // v ¤¬ÈÖÊ¼¤Î¾ì¹ç¤Ï²¿¤â¤·¤Ê¤¤
+    if (v == nil) return; // ¦pªGv¬O­ï§L??¡A?¤£?¦æ¥ô¦ó¾Þ§@
     v->prev->next = v->next;
     v->next->prev = v->prev;
-    delete v; // ¥á¥â¥ê¤ò³«Êü
+    delete v; // ?©ñ?¦s
 }
 
 int main() {
-    // ½é´ü²½
+    // ªì©l¤Æ
     init();
 
-    // ºî¤ê¤¿¤¤¥Î¡¼¥É¤ÎÌ¾Á°¤Î°ìÍ÷
-    // ºÇ¸åÈø¤Î¥Î¡¼¥É (¡Ö»³ËÜ¡×) ¤«¤é½ç¤ËÁÞÆþ¤¹¤ë¤³¤È¤ËÃí°Õ
+    // ·Q­n?«Øªº??ªº¦W?¦Cªí
+    // ª`·N¡A­n?³Ì¦Z¤@???("yamamoto")?©l³v??¤J
     vector<string> names = {"yamamoto",
                             "watanabe",
                             "ito",
@@ -60,23 +61,23 @@ int main() {
                             "suzuki",
                             "sato"};
 
-    // Ï¢·ë¥ê¥¹¥ÈºîÀ®: ³Æ¥Î¡¼¥É¤òÀ¸À®¤·¤ÆÏ¢·ë¥ê¥¹¥È¤ÎÀèÆ¬¤ËÁÞÆþ¤·¤Æ¤¤¤¯
+    // ?«Ø?ªí¡G¥Í¦¨¨C???¦}?¨ä´¡¤J?ªíªº??
     Node *watanabe;
     for (int i = 0; i < (int)names.size(); ++i) {
-        // ¥Î¡¼¥É¤òºîÀ®¤¹¤ë
+        // ?«Ø??
         Node* node = new Node(names[i]);
 
-        // ºîÀ®¤·¤¿¥Î¡¼¥É¤òÏ¢·ë¥ê¥¹¥È¤ÎÀèÆ¬¤ËÁÞÆþ¤¹¤ë
+        // ??«Øªº??´¡¤J?ªíªº??
         insert(node);
 
-        // ¡ÖÅÏÊÕ¡×¥Î¡¼¥É¤òÊÝ»ý¤·¤Æ¤ª¤¯
+        // «O¯d"watanabe"??
         if (names[i] == "watanabe") watanabe = node;
     }
 
-    // ¡ÖÅÏÊÕ¡×¥Î¡¼¥É¤òºï½ü¤¹¤ë
+    // ?°£"watanabe"??
     cout << "before: ";
-    printList(); // ºï½üÁ°¤ò½ÐÎÏ
+    printList(); // ?¥X?°£«eªº??
     erase(watanabe);
     cout << "after: ";
-    printList(); // ºï½ü¸å¤ò½ÐÎÏ
+    printList(); // ?¥X?°£¦Zªº??
 }
