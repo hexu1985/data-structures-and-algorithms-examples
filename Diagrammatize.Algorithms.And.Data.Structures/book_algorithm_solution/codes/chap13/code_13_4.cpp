@@ -3,24 +3,24 @@
 using namespace std;
 using Graph = vector<vector<int>>;
 
-// ¿¼¤µÍ¥ÀèÃµº÷
+// æ·±åº¦ä¼˜å…ˆæœç´¢
 vector<bool> seen;
 void dfs(const Graph &G, int v) {
-    seen[v] = true; // v ¤òË¬ÌäºÑ¤Ë¤¹¤ë
+    seen[v] = true; // å°†é¡¶ç‚¹væ ‡è®°ä¸ºå·²è¢«è®¿é—® 
 
-    // v ¤«¤é¹Ô¤±¤ë³ÆÄºÅÀ next_v ¤Ë¤Ä¤¤¤Æ
+    // ä»é¡¶ç‚¹vå¯åˆ°è¾¾çš„æ¯ä¸ªé¡¶ç‚¹ 
     for (auto next_v : G[v]) { 
-        if (seen[next_v]) continue; // next_v ¤¬Ãµº÷ºÑ¤À¤Ã¤¿¤é¥¹¥ë¡¼
-        dfs(G, next_v); // ºÆµ¢Åª¤ËÃµº÷
+        if (seen[next_v]) continue; // å¦‚æœnext_vå·²è¢«è®¿é—®ï¼Œåˆ™ä¸å†æœç´¢
+        dfs(G, next_v); // é€’å½’åœ°è¿›è¡Œæœç´¢
     }
 }
 
 int main() {
-    // ÄºÅÀ¿ô¤ÈÊÕ¿ô¡¢s ¤È t
+    // é¡¶ç‚¹æ•°å’Œè¾¹æ•°
     int N, M, s, t;
     cin >> N >> M >> s >> t;
 
-    // ¥°¥é¥ÕÆşÎÏ¼õ¼è
+    // æ¥æ”¶å›¾çš„è¾“å…¥
     Graph G(N);
     for (int i = 0; i < M; ++i) {
         int a, b;
@@ -28,11 +28,11 @@ int main() {
         G[a].push_back(b);
     }
 
-    // ÄºÅÀ s ¤ò¥¹¥¿¡¼¥È¤È¤·¤¿Ãµº÷
-    seen.assign(N, false); // Á´ÄºÅÀ¤ò¡ÖÌ¤Ë¬Ìä¡×¤Ë½é´ü²½
+    // ä»¥é¡¶ç‚¹sä½œä¸ºèµ·ç‚¹è¿›è¡Œæœç´¢
+    seen.assign(N, false); // åˆå§‹åŒ–æ‰€æœ‰é¡¶ç‚¹ä¸ºæœªè¢«è®¿é—®
     dfs(G, s);
 
-    // t ¤Ë¤¿¤É¤êÃå¤±¤ë¤«¤É¤¦¤«
+    // åˆ¤æ–­æ˜¯å¦å¯ä»¥åˆ°è¾¾t
     if (seen[t]) cout << "Yes" << endl;
     else cout << "No" << endl;
 }

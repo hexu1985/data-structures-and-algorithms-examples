@@ -3,33 +3,33 @@
 using namespace std;
 using Graph = vector<vector<int>>;
 
-// ÆóÉô¥°¥é¥ÕÈ½Äê
+// äºŒéƒ¨å›¾åˆ¤å®š
 vector<int> color;
 bool dfs(const Graph &G, int v, int cur = 0) {
     color[v] = cur;
     for (auto next_v : G[v]) {
-        // ÎÙÀÜÄºÅÀ¤¬¤¹¤Ç¤Ë¿§³ÎÄê¤·¤Æ¤¤¤¿¾ì¹ç
+        // å¦‚æœç›¸é‚»é¡¶ç‚¹çš„é¢œè‰²å·²ç»ç¡®å®š
         if (color[next_v] != -1) {
-            // Æ±¤¸¿§¤¬ÎÙÀÜ¤·¤¿¾ì¹ç¤ÏÆóÉô¥°¥é¥Õ¤Ç¤Ï¤Ê¤¤
+            // å¦‚æœç›¸é‚»é¡¶ç‚¹çš„é¢œè‰²ç›¸åŒï¼Œé‚£ä¹ˆè¿™ä¸æ˜¯äºŒéƒ¨å›¾
             if (color[next_v] == cur) return false;
 
-            // ¿§¤¬³ÎÄê¤·¤¿¾ì¹ç¤Ë¤ÏÃµº÷¤·¤Ê¤¤
+            // å¦‚æœé¢œè‰²å·²ç¡®å®šï¼Œåˆ™ä¸å†æœç´¢
             continue;
         }
 
-        // ÎÙÀÜÄºÅÀ¤Î¿§¤òÊÑ¤¨¤Æ¡¢ºÆµ¢Åª¤ËÃµº÷
-        // false ¤¬ÊÖ¤Ã¤Æ¤­¤¿¤é false ¤òÊÖ¤¹
+        // æ›´æ”¹ç›¸é‚»é¡¶ç‚¹çš„é¢œè‰²ï¼Œç„¶åé€’å½’æœç´¢
+        // å¦‚æœdfså‡½æ•°è¿”å›falseï¼Œåˆ™åŒ…å«dfså‡½æ•°çš„å½“å‰å‡½æ•°ä¹Ÿè¿”å›false
         if (!dfs(G, next_v , 1 - cur)) return false;
     }
     return true;
 }
 
 int main() {
-    // ÄºÅÀ¿ô¤ÈÊÕ¿ô
+    // é¡¶ç‚¹æ•°å’Œè¾¹æ•°
     int N, M;
     cin >> N >> M;
 
-    // ¥°¥é¥ÕÆşÎÏ¼õ¼è
+    // æ¥æ”¶å›¾çš„è¾“å…¥
     Graph G(N);
     for (int i = 0; i < M; ++i) {
         int a, b;
@@ -38,11 +38,11 @@ int main() {
         G[b].push_back(a);
     }
 
-    // Ãµº÷
+    // å¼€å§‹æœç´¢
     color.assign(N, -1);
     bool is_bipartite = true;
     for (int v = 0; v < N; ++v) {
-        if (color[v] != -1) continue; // v ¤¬Ãµº÷ºÑ¤ß¤Î¾ì¹ç¤ÏÃµº÷¤·¤Ê¤¤
+        if (color[v] != -1) continue; // å¦‚æœvå·²ç»è¢«è®¿é—®ï¼Œä¸è¿›è¡Œæœç´¢
         if (!dfs(G, v)) is_bipartite = false;
     }
 
