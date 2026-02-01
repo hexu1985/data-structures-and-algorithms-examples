@@ -4,40 +4,40 @@
 using namespace std;
 using Graph = vector<vector<int>>;
 
-// ¥È¥İ¥í¥¸¥«¥ë¥½¡¼¥È¤¹¤ë
+// æ‰§è¡Œæ‹“æ‰‘æ’åº
 vector<bool> seen;
-vector<int> order; // ¥È¥İ¥í¥¸¥«¥ë¥½¡¼¥È½ç¤òÉ½¤¹
+vector<int> order; // è¡¨ç¤ºæ‹“æ‰‘æ’åºçš„é¡ºåº
 void rec(const Graph &G, int v) {
     seen[v] = true;
     for (auto next_v : G[v]) {
-        if (seen[next_v]) continue; // ¤¹¤Ç¤ËË¬ÌäºÑ¤ß¤Ê¤éÃµº÷¤·¤Ê¤¤
+        if (seen[next_v]) continue; // å¦‚æœvå·²ç»è¢«è®¿é—®ï¼Œä¸å†è¿›è¡Œæœç²Ÿ
         rec(G, next_v);
     }
 
-    // v-out ¤òµ­Ï¿¤¹¤ë
+    // è®°å½• v-out çš„å€¼
     order.push_back(v);
 }
 
 int main() {
     int N, M;
-    cin >> N >> M; // ÄºÅÀ¿ô¤È»Ş¿ô
-    Graph G(N); // ÄºÅÀ¿ô N ¤Î¥°¥é¥Õ
+    cin >> N >> M; // é¡¶ç‚¹æ•°å’Œè¾¹æ•°
+    Graph G(N); // åŒ…å« N ä¸ªé¡¶ç‚¹çš„å›¾
     for (int i = 0; i < M; ++i) {
         int a, b;
         cin >> a >> b;
         G[a].push_back(b);
     }
 
-    // Ãµº÷
-    seen.assign(N, false); // ½é´ü¾õÂÖ¤Ç¤ÏÁ´ÄºÅÀ¤¬Ì¤Ë¬Ìä
-    order.clear(); // ¥È¥İ¥í¥¸¥«¥ë¥½¡¼¥È½ç
+    // å¼€å§‹æœç´¢
+    seen.assign(N, false); // åˆå§‹çŠ¶æ€ä¸‹ï¼Œæ‰€æœ‰é¡¶ç‚¹å‡æœªè¢«è®¿é—®
+    order.clear(); // æ‹“æ‰‘æ’åºçš„é¡ºåº
     for (int v = 0; v < N; ++v) {
-        if (seen[v]) continue; // ¤¹¤Ç¤ËË¬ÌäºÑ¤ß¤Ê¤éÃµº÷¤·¤Ê¤¤
+        if (seen[v]) continue; // å¦‚æœå·²ç»è®¿é—®ï¼Œä¸å†è¿›è¡Œæœç´¢
         rec(G, v);
     }
-    reverse(order.begin(), order.end()); // µÕ½ç¤Ë
+    reverse(order.begin(), order.end()); // å°†ç»“æœé€†åº
 
-    // ½ĞÎÏ
+    // è¾“å‡º
     for (auto v : order) cout << v << " -> ";
     cout << endl;
 }

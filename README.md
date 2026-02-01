@@ -17,5 +17,5 @@
     - [数据结构与算法 Python语言实现](Data.Structures.And.Algorithms.In.Python)
     - [Python数据结构与算法分析](Problem.Solving.With.Algorithms.And.Data.Structures.Using.Python)
     - [算法入门：用python编程和实践！](Introduction.To.Algorithms.Using.Python)
-+ Other
+    - [明解Python算法与数据结构](New.Meikai.Python.Algorithm)
     - [算法图解](Grokking.Algorithms)
