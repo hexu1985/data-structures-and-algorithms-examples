@@ -132,36 +132,72 @@ import os
 from graphics import *
 
 def main():
+    # 修复：Python 3 中 file() 已移除，使用 open()
+    try:
+        tDat = open('tour.dat', 'r')
+    except FileNotFoundError:
+        print("Error: tour.dat file not found!")
+        print("Please run the knight's tour algorithm first to generate tour.dat")
+        return
     
-    tDat = file('tour.dat')
-    win = GraphWin('tour',500,500)
-    win.setCoords(0,0,8,8)
+    win = GraphWin('Knight\'s Tour', 500, 500)
+    win.setCoords(0, 0, 8, 8)
     rList = []
     for i in range(8):
         for j in range(8):
-            rList.append(Rectangle(Point(i,j),Point(i+1,j+1)))
+            rList.append(Rectangle(Point(i, j), Point(i+1, j+1)))
     
+    # 绘制棋盘格子
     for i in rList:
         i.draw(win)
+        # 可选：给格子添加交替颜色
+        # if (i.getP1().getX() + i.getP1().getY()) % 2 == 0:
+        #     i.setFill("white")
+        # else:
+        #     i.setFill("gray")
+    
+    # 修复：Python 3 中读取文件
     stepList = tDat.read().split()
     print(stepList)
+    tDat.close()  # 关闭文件
+    
+    if not stepList:
+        print("Error: tour.dat is empty!")
+        return
+    
     start = int(stepList[0])
-    startSquare = rList[start]    
+    startSquare = rList[start]
+    
     i = 1
     while i < len(stepList):
         endSquare = rList[int(stepList[i])]
-        l = Line(startSquare.getCenter(),endSquare.getCenter())
+        l = Line(startSquare.getCenter(), endSquare.getCenter())
+        l.setOutline("red")  # 设置线条颜色为红色，更醒目
+        l.setWidth(2)        # 设置线条宽度
         l.draw(win)
-        t = Text(endSquare.getCenter(),str(i))
+        
+        # 在终点显示步数
+        t = Text(endSquare.getCenter(), str(i))
+        t.setSize(10)
         t.draw(win)
+        
         startSquare = endSquare
         i = i + 1
-        
-        
+    
+    # 添加提示信息
+    info = Text(Point(4, -0.5), f"Total moves: {len(stepList)-1}")
+    info.setSize(12)
+    info.draw(win)
+    
+    # 等待点击后关闭
+    win.getMouse()
+    win.close()
+
+
 def NodeToPos(id):
-   return ((id/8, id%8))
+    # 修复：Python 3 中整数除法使用 //
+    return (id // 8, id % 8)
    
    
 if __name__ == '__main__':
     main()
-

@@ -82,14 +82,14 @@ published by Franklin, Beedle & Associates.  """
 #     Add Entry boxes.
 
 
-import Tkinter
-tk = Tkinter
+import tkinter as tk
+# tk = Tkinter  # 移除这行，直接用 tk
 
 from copy import copy
 
-import exceptions
+# import exceptions  # Python 3 中不需要
 
-class GraphicsError(exceptions.Exception):
+class GraphicsError(Exception):  # 直接继承 Exception
     """Generic error class for graphics module exceptions."""
     def __init__(self, args=None):
         self.args=args
@@ -150,9 +150,9 @@ class GraphWin(tk.Canvas):
     def plotPixel(self, x, y, color="black"):
         """Set pixel raw (independent of window coordinates) pixel
         (x,y) to color"""
-    	self.create_line(x,y,x+1,y, fill=color)
-    	_root.update()
-    	
+        self.create_line(x,y,x+1,y, fill=color)
+        _root.update()
+        
     def flush(self):
         """Update drawing to the window (deprecated)"""
         self.update_idletasks()
@@ -229,11 +229,11 @@ class Transform:
 # Default values for various item configuration options. Only a subset of
 #   keys may be present in the configuration dictionary for a given item
 DEFAULT_CONFIG = {"fill":"",
-		  "outline":"black",
-		  "width":"1",
-		  "arrow":"none",
-		  "text":"",
-		  "justify":"center",
+          "outline":"black",
+          "width":"1",
+          "arrow":"none",
+          "text":"",
+          "justify":"center",
                   "font": ("helvetica", 12, "normal")}
 
 class GraphicsObject:
@@ -277,7 +277,7 @@ class GraphicsObject:
         window. Raises an error if attempt made to draw an object that
         is already visible."""
 
-        if self.canvas: raise GraphicsError, OBJ_ALREADY_DRAWN
+        if self.canvas: raise GraphicsError(OBJ_ALREADY_DRAWN)  # 修复：Python 3 语法
         self.canvas=graphwin
         self.id = self._draw(graphwin, self.config)
         _root.update()
@@ -315,8 +315,8 @@ class GraphicsObject:
         # Internal method for changing configuration of the object
         # Raises an error if the option does not exist in the config
         #    dictionary for this object
-        if not self.config.has_key(option):
-            raise GraphicsError, UNSUPPORTED_METHOD
+        if option not in self.config:  # 修复：has_key 在 Python 3 中已移除
+            raise GraphicsError(UNSUPPORTED_METHOD)  # 修复：Python 3 语法
         options = self.config
         options[option] = setting
         if self.canvas: self.canvas.itemconfig(self.id, options)
@@ -361,7 +361,7 @@ class _BBox(GraphicsObject):
     def __init__(self, p1, p2, options=["outline","width","fill"]):
         GraphicsObject.__init__(self, options)
         self.p1 = p1.clone()
-	self.p2 = p2.clone()
+        self.p2 = p2.clone()
 
     def _move(self, dx, dy):
         self.p1.x = self.p1.x + dx
@@ -439,7 +439,7 @@ class Line(_BBox):
         other = Line(self.p1, self.p2)
         other.config = self.config
         return other
-	
+    
     def _draw(self, canvas, options):
         p1 = self.p1
         p2 = self.p2
@@ -449,7 +449,7 @@ class Line(_BBox):
         
     def setArrow(self, option):
         if not option in ["first","last","both","none"]:
-            raise GraphicsError, BAD_OPTION
+            raise GraphicsError(BAD_OPTION)  # 修复：Python 3 语法
         self._reconfig("arrow", option)
         
 
@@ -459,16 +459,16 @@ class Polygon(GraphicsObject):
         # if points passed as a list, extract it
         if len(points) == 1 and type(points[0] == type([])):
             points = points[0]
-        self.points = map(Point.clone, points)
+        self.points = list(map(Point.clone, points))  # 修复：Python 3 中 map 返回迭代器
         GraphicsObject.__init__(self, ["outline", "width", "fill"])
         
     def clone(self):
-        other = apply(Polygon, self.points)
+        other = Polygon(*self.points)  # 修复：apply 在 Python 3 中移除，使用 *args
         other.config = self.config
         return other
 
     def getPoints(self):
-        return map(Point.clone, self.points)
+        return list(map(Point.clone, self.points))  # 修复：Python 3 中 map 返回迭代器
 
     def _move(self, dx, dy):
         for p in self.points:
@@ -481,59 +481,59 @@ class Polygon(GraphicsObject):
             args.append(x)
             args.append(y)
         args.append(options)
-        return apply(GraphWin.create_polygon, args) 
+        return GraphWin.create_polygon(*args)  # 修复：apply 在 Python 3 中移除，使用 *args
 
 class Text(GraphicsObject):
     
-    	def __init__(self, p, text):
-    		GraphicsObject.__init__(self, ["justify","fill","text","font"])
-    		self.setText(text)
-    		self.anchor = p.clone()
-    		self.setFill(DEFAULT_CONFIG['outline'])
-                self.setOutline = self.setFill
-    		
-    	def _draw(self, canvas, options):
-    		p = self.anchor
-    		x,y = canvas.toScreen(p.x,p.y)
-    		return canvas.create_text(x,y,options)
-    		
-    	def _move(self, dx, dy):
-    		self.anchor.move(dx,dy)
-    		
-    	def clone(self):
-    		other = Text(self.anchor, self.config['text'])
-    		other.config = self.config
-    		return other
+    def __init__(self, p, text):
+        GraphicsObject.__init__(self, ["justify","fill","text","font"])
+        self.setText(text)
+        self.anchor = p.clone()
+        self.setFill(DEFAULT_CONFIG['outline'])
+        self.setOutline = self.setFill
+            
+    def _draw(self, canvas, options):
+        p = self.anchor
+        x,y = canvas.toScreen(p.x,p.y)
+        return canvas.create_text(x,y,options)
+            
+    def _move(self, dx, dy):
+        self.anchor.move(dx,dy)
+            
+    def clone(self):
+        other = Text(self.anchor, self.config['text'])
+        other.config = self.config
+        return other
 
-    	def setText(self,text):
-    		self._reconfig("text", text)
-    		
-    	def getText(self):
-    		return self.config["text"]
-    	    	
-    	def getAnchor(self):
-    		return self.anchor.clone()
+    def setText(self,text):
+        self._reconfig("text", text)
+            
+    def getText(self):
+        return self.config["text"]
+                
+    def getAnchor(self):
+        return self.anchor.clone()
 
-        def setFace(self, face):
-            if face in ['helvetica','arial','courier','times roman']:
-                f,s,b = self.config['font']
-                self._reconfig("font",(face,s,b))
-            else:
-                raise GraphicsError, BAD_OPTION
+    def setFace(self, face):
+        if face in ['helvetica','arial','courier','times roman']:
+            f,s,b = self.config['font']
+            self._reconfig("font",(face,s,b))
+        else:
+            raise GraphicsError(BAD_OPTION)  # 修复：Python 3 语法
 
-        def setSize(self, size):
-            if 5 <= size <= 36:
-                f,s,b = self.config['font']
-                self._reconfig("font", (f,size,b))
-            else:
-                raise GraphicsError, BAD_OPTION
+    def setSize(self, size):
+        if 5 <= size <= 36:
+            f,s,b = self.config['font']
+            self._reconfig("font", (f,size,b))
+        else:
+            raise GraphicsError(BAD_OPTION)  # 修复：Python 3 语法
 
-        def setStyle(self, style):
-            if style in ['bold','normal','italic', 'bold italic']:
-                f,s,b = self.config['font']
-                self._reconfig("font", (f,s,style))
-            else:
-                raise GraphicsError, BAD_OPTION
+    def setStyle(self, style):
+        if style in ['bold','normal','italic', 'bold italic']:
+            f,s,b = self.config['font']
+            self._reconfig("font", (f,s,style))
+        else:
+            raise GraphicsError(BAD_OPTION)  # 修复：Python 3 语法
 
         def setTextColor(self, color):
             self.setFill(color)
@@ -603,26 +603,26 @@ class Entry(GraphicsObject):
         if face in ['helvetica','arial','courier','times roman']:
             self._setFontComponent(0, face)
         else:
-            raise GraphicsError, BAD_OPTION
+            raise GraphicsError(BAD_OPTION)  # 修复：Python 3 语法
 
     def setSize(self, size):
         if 5 <= size <= 36:
             self._setFontComponent(1,size)
         else:
-            raise GraphicsError, BAD_OPTION
+            raise GraphicsError(BAD_OPTION)  # 修复：Python 3 语法
 
     def setStyle(self, style):
         if style in ['bold','normal','italic', 'bold italic']:
             self._setFontComponent(2,style)
         else:
-            raise GraphicsError, BAD_OPTION
+            raise GraphicsError(BAD_OPTION)  # 修复：Python 3 语法
 
     def setTextColor(self, color):
         self.color=color
         if self.entry:
             self.entry.config(fg=color)
 
-    		
+            
 class Image(GraphicsObject):
 
     idCount = 0
@@ -634,7 +634,7 @@ class Image(GraphicsObject):
         self.anchor = p.clone()
         self.imageId = Image.idCount
         Image.idCount = Image.idCount + 1
-    		
+            
     def _draw(self, canvas, options):
         p = self.anchor
         x,y = canvas.toScreen(p.x,p.y)
@@ -651,7 +651,7 @@ class Image(GraphicsObject):
 
     def getAnchor(self):
         return self.anchor.clone()
-    		
+            
     def clone(self):
         other = Image(self.anchor, self.file)
         other.config = self.config
