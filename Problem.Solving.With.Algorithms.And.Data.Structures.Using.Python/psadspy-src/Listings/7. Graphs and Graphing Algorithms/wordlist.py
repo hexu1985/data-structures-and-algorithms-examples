@@ -38,7 +38,7 @@ def build_graph(filename):
     return the_graph
 
 
-g = build_graph("Graphs/words_small")
+g = build_graph("words_small")
 print(len(g))
 
 from pythonds3.basic import Queue
