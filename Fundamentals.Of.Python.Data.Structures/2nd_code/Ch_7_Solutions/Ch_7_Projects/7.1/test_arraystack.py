@@ -53,4 +53,4 @@ class TestStackMethods:
 
 
 if __name__ == "__main__":
-    pytest.main(["test_stack.py"])
+    pytest.main(["test_arraystack.py"])
