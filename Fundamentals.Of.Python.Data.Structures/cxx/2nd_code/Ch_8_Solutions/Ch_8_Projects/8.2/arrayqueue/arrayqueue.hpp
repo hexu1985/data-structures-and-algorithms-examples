@@ -17,13 +17,6 @@ public:
         return _items[_front];
     }
 
-    T& peek() {
-        if (isEmpty()) {
-            throw std::runtime_error("Queue is empty");
-        }
-        return _items[_front];
-    }
-
     void clear() {
         _size = 0;
         _front = _rear = -1;
@@ -36,27 +29,12 @@ public:
         }
         if (isEmpty()) {
             _front = _rear = 0;
-        } else if (_rear == _items.size() - 1) {
+        } else if (_rear == static_cast<int>(_items.size()) - 1) {
             _rear = 0;
         } else {
             _rear += 1;
         }
         _items[_rear] = item;
-        _size += 1;
-    }
-
-    void add(T&& item) {
-        if (size() == _items.size()) {
-            expand();
-        }
-        if (isEmpty()) {
-            _front = _rear = 0;
-        } else if (_rear == _items.size() - 1) {
-            _rear = 0;
-        } else {
-            _rear += 1;
-        }
-        _items[_rear] = std::move(item);
         _size += 1;
     }
 
@@ -68,7 +46,7 @@ public:
         _size -= 1;
         if (isEmpty()) {
             _front = _rear = -1;
-        } else if (_front == _items.size() - 1) {
+        } else if (_front == static_cast<int>(_items.size()) - 1) {
             _front = 0;
         } else {
             _front += 1;
@@ -95,7 +73,7 @@ private:
         int cursor = _front;
         while (cursor != _rear) {
             tempArray[i] = std::move(_items[cursor]);
-            if (cursor == _items.size() - 1) {
+            if (cursor == static_cast<int>(_items.size()) - 1) {
                 cursor = 0;
             } else {
                 cursor += 1;
@@ -115,7 +93,7 @@ private:
         int cursor = _front;
         while (cursor != _rear) {
             tempArray[i] = std::move(_items[cursor]);
-            if (cursor == _items.size() - 1) {
+            if (cursor == static_cast<int>(_items.size()) - 1) {
                 cursor = 0;
             } else {
                 cursor += 1;
