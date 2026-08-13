@@ -1,11 +1,5 @@
 #!/usr/bin/env python3
 
-"""
-File: testquicksort.py
-
-Tests the quicksort algorithm
-"""
-
 def quicksort(lyst):
     quicksortHelper(lyst, 0, len(lyst) - 1)
 
@@ -41,15 +35,4 @@ def swap(lyst, i, j):
     lyst[j] = temp
 
 
-import random
 
-def main(size = 20, sort = quicksort):
-    lyst = []
-    for count in range(size):
-        lyst.append(random.randint(1, size + 1))
-    print(lyst)
-    sort(lyst)
-    print(lyst)
-
-if __name__ == "__main__":
-    main() 
