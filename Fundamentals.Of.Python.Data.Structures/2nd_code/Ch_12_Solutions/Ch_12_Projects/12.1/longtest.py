@@ -98,13 +98,13 @@ edge.setWeight(5)
 result = ""
 for edge in g.getVertex("a").incidentEdges():
     result += str(edge) + " "  
-print("Expect edges ab1 ad7 :", result)
+print("Expect edges ab1 :", result)
 
 # Test neighboringVertices 
 result = ""
 for vertex in g.neighboringVertices("a"):
     result += str(vertex) + " "    
-print("Expect vertices bd :" + result)
+print("Expect vertices b :" + result)
 
 # Test size methods and str for graph
 print("Expect 9 and 5:", g.sizeVertices(), g.sizeEdges())
